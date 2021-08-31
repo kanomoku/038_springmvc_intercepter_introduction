@@ -10,5 +10,4 @@ public class DemoController {
 		System.out.println("执行demo");
 		return "index.jsp";
 	}
-
 }

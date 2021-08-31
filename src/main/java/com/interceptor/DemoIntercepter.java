@@ -20,30 +20,32 @@ import org.springframework.web.servlet.ModelAndView;
 		4.2.2 拦截特定的的url*/
 public class DemoIntercepter implements HandlerInterceptor{
 
-	//进入控制器之前执行，如果返回值是false则阻止进入控制器
+	//进入控制器之前执行
 	@Override
 	public boolean preHandle(HttpServletRequest arg0, HttpServletResponse arg1, Object arg2) throws Exception {
-		System.out.println("preHandle");
+		System.out.println("preHandle:进入控制器之前执行");
 		//拦截的控制器的方法
-		System.out.println("arg2："+arg2);
+		System.out.println("arg2：拦截的控制器的方法:"+arg2);
 		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+		//如果返回值是false 则阻止进入控制器
 		return true;
 	}
 
-	//控制器执行完成，进入jsp之前执行
+	//控制器执行完成后进入jsp之前执行
 	//日志记录
 	//敏感词语过滤
 	@Override
 	public void postHandle(HttpServletRequest arg0, HttpServletResponse arg1, Object arg2, ModelAndView arg3)
 			throws Exception {
-		System.out.println("postHandle");
+		System.out.println("~~~~11~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+		System.out.println("postHandle:控制器执行完成进入jsp之前执行");
 		//拦截的控制器的方法
-		System.out.println(arg2);
-		System.out.println(arg3);
+		System.out.println("arg2：拦截的控制器的方法："+arg2);
+		System.out.println("arg3:"+arg3);
 		String viewName = arg3.getViewName();
 		Object object = arg3.getModel().get("key");
 		System.out.println(viewName+object);
-		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+		System.out.println("~~~~~22~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 	}
 	//jsp执行完成后执行
 	//记录执行过程中出现的异常，无论是否出现异常该方法都会被执行
@@ -51,11 +53,12 @@ public class DemoIntercepter implements HandlerInterceptor{
 	@Override
 	public void afterCompletion(HttpServletRequest arg0, HttpServletResponse arg1, Object arg2, Exception arg3)
 			throws Exception {
-		System.out.println(arg2);
-		System.out.println(arg3);
+		System.out.println("~~~~~33~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+		System.out.println("afterCompletion：jsp执行完成后执行");
+		System.out.println("arg2：拦截的控制器的方法: "+arg2);
+		System.out.println("arg3：异常,根据arg3是否为null，判断是否出现异常"+arg3);
 		//根据arg3是否为null，判断是否出现异常
-//		arg3.getMessage();
-		System.out.println("afterCompletion");
-		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+		//arg3.getMessage();
+		System.out.println("~~~~~~44~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 	}
 }
